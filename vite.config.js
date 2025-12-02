@@ -6,7 +6,7 @@ export default defineConfig({
   base: '/frontend/',
   build: {
     rollupOptions: {
-      input: './src/app.jsx',
+      input: './src/App.jsx',
     },
   },
 })
