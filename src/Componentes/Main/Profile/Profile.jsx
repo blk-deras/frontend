@@ -4,7 +4,7 @@ function Profile() {
     return ( 
         <>
             <div className="profile site__section">
-                <img className="profile__image" src="public/assets/images/avatar-perfil.png" alt="Avatar" />
+                <img className="profile__image" src="/assets/images/avatar-perfil.png" alt="Avatar" />
                 
                 <div className="profile__details">
                     <h1 className="profile__name" id="h1temporal">El diavlo</h1>
