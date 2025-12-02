@@ -1,6 +1,6 @@
 //los componentes siempre inician con mayuscula
 import "./Header.css";
-import  logo  from "../../assets/images/logo.jpeg";
+import  logo  from "../../../public/assets/images/logo.jpeg";
 function Header() {
     return (
         <>
