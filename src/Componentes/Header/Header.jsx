@@ -1,19 +1,17 @@
 //los componentes siempre inician con mayuscula
 import "./Header.css";
-import Copyright from "../Copyright/Copyrighy";
-
-function Header({setX1}) {
+import  logo  from "../../assets/images/logo.jpeg";
+function Header() {
     return (
         <>
             <header className="header">
-                <h1>Esto es el header</h1>
-                <button onClick={
-                    () => {
-                     setX1("24/7 online para ti");
-                    }
-                }>Click del header</button>
+                <img
+                alt="Magical Mexico Logo"
+                className="header__logo"
+                src={ logo }
+                />
+                <h1>México Magico</h1>
             </header>
-            <Copyright/>
         </>
     )
 }

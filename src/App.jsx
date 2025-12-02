@@ -1,29 +1,68 @@
 import Header from "./Componentes/Header/Header";
-import Myname from "./Componentes/Main/Main";
-import Footer from "./Componentes/Footer/Footer";
-import { useState } from "react";
 import { AppContext } from "./Componentes/Context/AppContext";
 import "./App.css";
-import Background from "./Componentes/Background/Background";
+import Main from "./Componentes/Main/Main";
+import api from "./services/Api";
+import Footer from "./Componentes/Footer/Footer";
+import { useEffect, useState } from "react";
 
 function App() {
-  const [x1, setX1] = useState("Start Value");
-  const [c1, setC1] = useState("Rowan Networks");
-  const [d1, setD1] = useState("Elena Deras");
+  const [cards, setCards] = useState([]);
+  console.log(cards); 
+  useEffect(() => {
+    (async () => {
+      await api
+        .getAllCards().then((data) => {
+          setCards(data)
+        }).catch((error) => {
+          console.error("Error getting Cards: " + error);
+        })
+    }) ();
+  }, []);
+
+  async function handleDeleteCard(card) {
+    await api.deleteCard(card._id)
+    .then(() => {
+      const newArray = cards.filter(
+        (currentCard) => currentCard._id !== card._id
+      );
+      setCards(newArray);
+    })
+    .catch((error) => console.error(error));
+  }
+
+  async function handleUpdateCard(card) {
+    const likeinvertido = !card.like;
+    await api
+      .updateCard(card._id, likeinvertido)
+      .then(() => {
+        const temp = {...card, like: likeinvertido};
+        console.log(temp);
+        
+        setCards ((prev) => {
+          return prev.map((element) => {
+            return element._id === temp._id ? temp: element;
+          })
+      })
+      })
+      //.catch((error) => console.error(error));
+
+      
+  }
 
   return (
     <>  
-      <AppContext.Provider value={{ c1, setC1, d1, setD1}}>
-          <Header setX1={setX1} d1 = {d1}/>
-          <Background>
-            <Myname x1={x1} />
-            <Footer setX1={setX1} x1={x1} setD1 = {setD1}/>
-          </Background>
-        <h1> Esto esta en app {x1}</h1>
-        <h1>{c1}</h1>
+    <AppContext.Provider value={{ cards, setCards }}>
+        <div className="app">
+          <div className="app__content">
+            <Header />
+            <Main cards={cards} handleDeleteCard={handleDeleteCard} handleUpdateCard={handleUpdateCard}/>
+            <Footer />
+          </div>
+        </div>
       </AppContext.Provider>
     </>
   );
 }
 
-export default App
+export default App;
