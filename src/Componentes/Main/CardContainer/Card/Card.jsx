@@ -20,8 +20,8 @@ const  Card = props => {
                 <h2 className="card__title">{card.name}</h2>
                 <button aria-label="Like" className={
                     card.like
-                        ? "card__like-button"
-                        : "card__like-button card__like-button_is-active"
+                        ? "card__like-button card__like-button_is-active"
+                        : "card__like-button"
                 } type="button"
                 onClick={() => {
                     handleUpdateCard(card);

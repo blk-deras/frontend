@@ -13,7 +13,13 @@ function App() {
     (async () => {
       await api
         .getAllCards().then((data) => {
-          setCards(data)
+          setCards(
+            data.map(card => ({
+              ...card,
+              like: card.like === true || card.like === "true"
+            }))
+          );
+
         }).catch((error) => {
           console.error("Error getting Cards: " + error);
         })
